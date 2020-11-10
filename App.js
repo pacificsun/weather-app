@@ -8,6 +8,7 @@ const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather?';
 
 export default function App() {
   const [errorMessage, setErrorMessage] = useState(null);
+  const [currentWeather, setCurrentWeather] = useState(null);
 
   useEffect(() => {
     load();
@@ -22,18 +23,42 @@ export default function App() {
       const location = await Location.getCurrentPositionAsync();
 
       const { latitude, longitude } = location.coords;
+
       const weatherUrl = `${BASE_URL}lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}`;
-      console.warn(`latitude: ${latitude} and longitude: ${longitude}`);
+      // console.log(weatherUrl);
+      const response = await fetch(weatherUrl);
+
+      const result = await response.json();
+
+      // console.log(result);
+      if (response.ok) {
+        setCurrentWeather(result);
+      } else {
+        setErrorMessage(result.message);
+      }
     } catch (err) {
       console.error(err);
     }
   }
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  if (currentWeather) {
+    const {
+      main: { temp },
+    } = currentWeather;
+
+    return (
+      <View style={styles.container}>
+        <Text>{temp}</Text>
+        <StatusBar style="auto" />
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <Text>{errorMessage}</Text>
+        <StatusBar style="auto" />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
