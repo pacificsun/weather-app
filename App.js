@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location';
 
+const WEATHER_API_KEY = 'b062803a275ee4bc06537e95f676ab34';
+const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather?';
+
 export default function App() {
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -17,7 +20,9 @@ export default function App() {
         return;
       }
       const location = await Location.getCurrentPositionAsync();
+
       const { latitude, longitude } = location.coords;
+      const weatherUrl = `${BASE_URL}lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}`;
       console.warn(`latitude: ${latitude} and longitude: ${longitude}`);
     } catch (err) {
       console.error(err);
