@@ -9,6 +9,7 @@ const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather?';
 export default function App() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [currentWeather, setCurrentWeather] = useState(null);
+  const [unitSystem, setUnitSystem] = useState('metric');
 
   useEffect(() => {
     load();
@@ -24,7 +25,7 @@ export default function App() {
 
       const { latitude, longitude } = location.coords;
 
-      const weatherUrl = `${BASE_URL}lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}`;
+      const weatherUrl = `${BASE_URL}lat=${latitude}&lon=${longitude}&units=${unitSystem}&appid=${WEATHER_API_KEY}`;
       // console.log(weatherUrl);
       const response = await fetch(weatherUrl);
 
@@ -37,7 +38,7 @@ export default function App() {
         setErrorMessage(result.message);
       }
     } catch (err) {
-      console.error(err);
+      setErrorMessage(err.message);
     }
   }
   if (currentWeather) {
