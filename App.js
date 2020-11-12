@@ -17,8 +17,9 @@ export default function App() {
 
   useEffect(() => {
     load();
-  }, []);
+  }, [unitSystem]);
   async function load() {
+    setErrorMessage(null);
     try {
       let { status } = await Location.requestPermissionsAsync();
       if (status !== 'granted') {
