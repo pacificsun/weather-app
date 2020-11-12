@@ -5,6 +5,7 @@ import * as Location from 'expo-location';
 import WeatherInfo from './components/WeatherInfo';
 
 import UnitPicker from './components/UnitPicker';
+import ReloadIcon from './components/ReloadIcon';
 
 import { colors } from './utils/index';
 
@@ -20,6 +21,7 @@ export default function App() {
   useEffect(() => {
     load();
   }, [unitSystem]);
+
   async function load() {
     setCurrentWeather(null);
     setErrorMessage(null);
@@ -55,6 +57,7 @@ export default function App() {
         <StatusBar style="auto" />
         <View style={styles.main}>
           <UnitPicker unitSystem={unitSystem} setUnitSystem={setUnitSystem} />
+          <ReloadIcon load={load} />
           <WeatherInfo currentWeather={currentWeather} />
         </View>
       </View>
