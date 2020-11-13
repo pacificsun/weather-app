@@ -6,6 +6,7 @@ import WeatherInfo from './components/WeatherInfo';
 
 import UnitPicker from './components/UnitPicker';
 import ReloadIcon from './components/ReloadIcon';
+import WeatherDetails from './components/WeatherDetails';
 
 import { colors } from './utils/index';
 
@@ -60,6 +61,7 @@ export default function App() {
           <ReloadIcon load={load} />
           <WeatherInfo currentWeather={currentWeather} />
         </View>
+        <WeatherDetails currentWeather={currentWeather} />
       </View>
     );
   } else if (errorMessage) {
