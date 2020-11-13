@@ -61,7 +61,10 @@ export default function App() {
           <ReloadIcon load={load} />
           <WeatherInfo currentWeather={currentWeather} />
         </View>
-        <WeatherDetails currentWeather={currentWeather} />
+        <WeatherDetails
+          currentWeather={currentWeather}
+          unitSystem={unitSystem}
+        />
       </View>
     );
   } else if (errorMessage) {
