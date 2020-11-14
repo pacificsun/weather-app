@@ -37,12 +37,11 @@ export default function App() {
       const { latitude, longitude } = location.coords;
 
       const weatherUrl = `${BASE_URL}lat=${latitude}&lon=${longitude}&units=${unitSystem}&appid=${WEATHER_API_KEY}`;
-      // console.log(weatherUrl);
+
       const response = await fetch(weatherUrl);
 
       const result = await response.json();
 
-      // console.log(result);
       if (response.ok) {
         setCurrentWeather(result);
       } else {
